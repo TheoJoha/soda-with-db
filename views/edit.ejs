@@ -1,0 +1,10 @@
+<h1>Update <%= soda.name %></h1>
+
+<form action="/soda/<%= soda._id %>?_method=PUT" method="post">
+    <input type="text" name="name" placeholder="soda name" value="<%= soda.name %>" />
+    <input type="text" name="color" placeholder="soda color" value="<%= soda.color %>" /> 
+    <input type="checkbox" name="readyToSell" <%= soda.readyToSell ? "checked" : "" %> />
+    <input type="submit" value="Update <%= soda.name %>" />
+ 
+</form>
+

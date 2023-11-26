@@ -4,4 +4,11 @@
 
 <h3>READY TO SELL: <%= soda.readyToSell ? "YES" : "NO" %></h3>
 
+<form action="/soda/<%= soda._id %>?_method=DELETE" method="post">
+    <input type="submit" value="delete">
+</form>
+
+<a href="/soda/<%= soda._id %>/edit">Update</a>
+
 <a href="/soda"><h4>BACK TO MAIN PAGE</h4></a>
+

@@ -37,20 +37,35 @@ router.get("/new", (req, res) => {
 })
 
 // destroy route - DELETE - DELETES ONE SODA
+router.delete("/:id", async (req, res) => {
+    await Soda.findOne({ id: req.body.id }).remove().exec().catch((error) => errorHandler(error, res))
+    res.redirect("/soda")
+})
 
 // UPDATE ROUTE - PUT - updates one soda
+router.put("/:id", async (req, res) => {
+    req.body.readyToSell = Boolean(req.body.readyToSell)
+    await Soda.findByIdAndUpdate(req.params.id, req.body)
+    res.redirect("/soda")
+})
 
 // CREATE ROUTE
 router.post("/", async (req, res) => {
 
     //make sure readyToSell is true or false
-    req.body.readyToSell = Boolean(req.body.readyToSell)
+    req.body.readyToSell = Boolean(req.params.readyToSell)
     
     // create the soda
     await Soda.create(req.body).catch((error) => errorHandler(error, res))
 
     // redirect back to main page
     res.redirect("/soda")
+})
+
+// EDIT ROUTE - GET - GET
+router.get("/:id/edit", async (req, res) => {
+    const soda = await Soda.findById(req.params.id).catch((error) => errorHandler(error, res))
+res.render("show.ejs", {soda})
 })
 
 // SHOW ROUTE - GET - gets one soda
