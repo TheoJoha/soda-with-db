@@ -16,11 +16,11 @@ const app = express()
 //-----------------------------------------------
 // middleware
 //-----------------------------------------------
-app.use(morgan("default"))
+app.use(morgan("combined"))
 app.use(methodOverride("_method"))
 app.use(express.urlencoded({extended: true}))
 app.use("/static", express.static("public"))
-
+const SodaRouter = require("./controllers/soda")
 
 //-----------------------------------------------
 // routes
@@ -28,6 +28,8 @@ app.use("/static", express.static("public"))
 app.get("/", (req, res) => {
     res.send("Server is working")
 })
+
+app.use("/soda", SodaRouter)
 
 //-----------------------------------------------
 // server listener
