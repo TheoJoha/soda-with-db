@@ -1,0 +1,5 @@
+<h1>List of Sodas</h1>
+
+<% sodas.forEach((soda, index) => { %>
+    <a href="/soda/<%= soda._id %>"><h2><%= soda.name %></h2></a>
+<% }) %>
