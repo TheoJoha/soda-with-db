@@ -17,9 +17,9 @@ function errorHandler(error, res) {
 router.get("/seed", async (req, res) => {
     await Soda.deleteMany().catch((error) => errorHandler(error, res))
     const sodas = await Soda.create([
-        {name: "Orange Soda", color: "Orange", readyToSell: true},
-        {name: "Cola", color: "Black", readyToSell: true},
-        {name: "Root beer", color: "brown", readyToSell: false}
+        { name: "Orange Soda", color: "Orange", readyToSell: true },
+        { name: "Cola", color: "Black", readyToSell: true },
+        { name: "Root beer", color: "brown", readyToSell: false }
     ])
     res.json(sodas)
 })
@@ -28,12 +28,12 @@ router.get("/seed", async (req, res) => {
 // index route - get all sodas
 router.get("/", async (req, res) => {
     const sodas = await Soda.find({}).catch((error) => errorHandler(error, res))
-    res.render("index.ejs", {sodas})
+    res.render("soda/index.ejs", { sodas })
 })
 
 // new route - get - get the new form
 router.get("/new", (req, res) => {
-    res.render("new.ejs")
+    res.render("soda/new.ejs")
 })
 
 // destroy route - DELETE - DELETES ONE SODA
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
 
     //make sure readyToSell is true or false
     req.body.readyToSell = Boolean(req.params.readyToSell)
-    
+
     // create the soda
     await Soda.create(req.body).catch((error) => errorHandler(error, res))
 
@@ -64,14 +64,16 @@ router.post("/", async (req, res) => {
 
 // EDIT ROUTE - GET - GET
 router.get("/:id/edit", async (req, res) => {
-    const soda = await Soda.findById(req.params.id).catch((error) => errorHandler(error, res))
-res.render("show.ejs", {soda})
+    const soda = await Soda.findById(req.params.id).catch((error) =>
+        errorHandler(error, res))
+    res.render("soda/edit.ejs", {soda})
 })
 
 // SHOW ROUTE - GET - gets one soda
 router.get("/:id", async (req, res) => {
-    const soda = await Soda.findById(req.params.id)
-    res.render("show.ejs", {soda})
+    const soda = await Soda.findById(req.params.id).catch((error) =>
+    errorHandler(error, res));
+    res.render("soda/show.ejs", { soda })
 })
 
 
